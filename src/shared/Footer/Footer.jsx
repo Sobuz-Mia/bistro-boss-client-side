@@ -1,4 +1,5 @@
 const Footer = () => {
+    const currentYear = new Date().getFullYear();
   return (
     <div>
       <footer className="footer p-10 bg-[#111827] text-neutral-content">
@@ -61,7 +62,7 @@ const Footer = () => {
       </footer>
       <footer className="footer footer-center p-4 bg-black text-white">
         <aside>
-          <p>Copyright © 2023 - All right reserved by ACME Industries Ltd</p>
+          <p>Copyright © {currentYear} - All right reserved by bistro boss company Ltd</p>
         </aside>
       </footer>
     </div>
