@@ -6,7 +6,7 @@ const Navbar = () => {
     // }
   const navLinks = (
     <>
-      <li className="uppercase text-lg font-bold ">
+      <li className="uppercase text-lg font-semibold ">
         <NavLink to={"/"}>Home</NavLink>
       </li>
       <li className="uppercase text-lg font-bold">
@@ -24,7 +24,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-[#151515] text-white fixed z-10 max-w-screen-xl mx-auto opacity-50">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
