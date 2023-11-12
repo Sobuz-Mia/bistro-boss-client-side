@@ -1,11 +1,11 @@
-import coverMenu from "../../../assets/menu/banner3.jpg";
+
 import MenuTitle from "../../../components/MenuTitle/MenuTitle";
 import { Parallax } from "react-parallax";
-const Cover = () => {
+const Cover = ({coverImg,title,description}) => {
   return (
     <Parallax
       blur={{ min: -15, max: 15 }}
-      bgImage={coverMenu}
+      bgImage={coverImg}
       bgImageAlt="the dog"
       strength={-200}
       className="mb-10"
@@ -13,12 +13,12 @@ const Cover = () => {
       <div
         className="hero h-[600px]"
       >
-        <div className="hero-overlay bg-opacity-60"></div>
+        <div className="hero-overlay bg-opacity-10"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="">
             <MenuTitle
-              header="OUR MENU"
-              description="Would you like to try a dish?"
+              header={title}
+              description={description}
             ></MenuTitle>
           </div>
         </div>
