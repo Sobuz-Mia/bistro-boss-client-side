@@ -1,30 +1,75 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
-    // const logoStyle = {
-    //     letter-spacing: 5px;
-    // }
+  const { user, loggedOut } = useAuth();
+  const navigate = useNavigate();
+  const handleLoggedOut = () => {
+    loggedOut();
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "User log out successfully",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    navigate('/');
+  };
   const navLinks = (
     <>
       <li className="uppercase text-lg font-semibold ">
-        <NavLink to={"/"}>Home</NavLink>
+        <NavLink className="hover:text-black hover:bg-base-200" to={"/"}>
+          Home
+        </NavLink>
       </li>
       <li className="uppercase text-lg font-bold">
-        <NavLink to={"/contact"}>CONTACT us</NavLink>
+        <NavLink className="hover:text-black hover:bg-base-200" to={"/contact"}>
+          CONTACT us
+        </NavLink>
       </li>
       <li className="uppercase text-lg font-bold">
-        <NavLink to={"dashboard"}>DASHBOARD</NavLink>
+        <NavLink
+          className="hover:text-black hover:bg-base-200"
+          to={"dashboard"}
+        >
+          DASHBOARD
+        </NavLink>
       </li>
       <li className="uppercase text-lg font-bold">
-        <NavLink to={"/menu"}>Our Menu</NavLink>
+        <NavLink className="hover:text-black hover:bg-base-200" to={"/menu"}>
+          Our Menu
+        </NavLink>
       </li>
-      <li className="uppercase text-lg font-bold text-white">
-        <NavLink to={"/order"}>Our Shop</NavLink>
+      <li className="uppercase text-lg font-bold ">
+        <NavLink
+          className="hover:text-black hover:bg-base-200"
+          to={"/order/salad"}
+        >
+          Our Shop
+        </NavLink>
       </li>
+      {user ? (
+        <li className="uppercase text-lg font-bold ">
+          <NavLink
+            onClick={handleLoggedOut}
+            className="hover:text-black hover:bg-base-200"
+            to={"/login"}
+          >
+            Log out
+          </NavLink>
+        </li>
+      ) : (
+        <li className="uppercase text-lg font-bold ">
+          <NavLink className="hover:text-black hover:bg-base-200" to={"/login"}>
+            Login
+          </NavLink>
+        </li>
+      )}
     </>
   );
   return (
-    <div className="navbar bg-[#151515] text-white fixed z-10 max-w-screen-xl mx-auto opacity-50">
+    <div className="navbar bg-[#151515] text-white fixed z-10 max-w-screen-xl mx-auto opacity-60">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -45,21 +90,27 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52 text-white "
           >
             {navLinks}
           </ul>
         </div>
         <div className="flex flex-col items-center">
           <a className="btn btn-ghost normal-case text-xl">BISTRO BOSS</a>
-          <span className="-mt-4" style={{letterSpacing: '5px'}}>Restaurant</span>
+          <span className="-mt-4" style={{ letterSpacing: "5px" }}>
+            Restaurant
+          </span>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
+        <ul className="menu menu-horizontal px-1 text-white ">{navLinks}</ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
+      <div>
+    {user && <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+      <div className="w-10 rounded-full">
+        <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
+      </div>
+    </label>}
       </div>
     </div>
   );
