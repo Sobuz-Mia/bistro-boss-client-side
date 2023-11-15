@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/others/authentication1.png";
 import { useForm } from "react-hook-form";
 // import {
@@ -6,12 +6,14 @@ import { useForm } from "react-hook-form";
 //   LoadCanvasTemplate,
 //   validateCaptcha,
 // } from "react-simple-captcha";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 const Login = () => {
   // const captchaRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const form = location?.state?.from?.pathname || '/';
   // const [disable, setDisable] = useState(true);
   const {
     register,
@@ -20,7 +22,6 @@ const Login = () => {
   } = useForm();
   const {loggedIn} = useAuth();
   const onSubmit = (data) => {
-    console.log(data);
     const email = data?.email;
     const password = data?.password;
     loggedIn(email,password)
@@ -34,7 +35,7 @@ const Login = () => {
           timer: 1500
         });
       }
-      navigate('/')
+      navigate(form, {replace:true})
     })
     .catch((error) => {
       if (error) {

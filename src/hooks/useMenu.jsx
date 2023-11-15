@@ -1,11 +1,12 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import useAxios from "./useAxios";
 
 const useMenu = () => {
     const [menu, setMenu] = useState([]);
     const [loading,setLoading] = useState(true);
+    const axios = useAxios();
   useEffect(() => {
-    axios.get("http://localhost:5000/menus").then((data) => {
+    axios.get("/menus").then((data) => {
       setMenu(data.data)
       setLoading(false)
     });

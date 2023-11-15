@@ -1,21 +1,29 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { FaCartArrowDown } from "react-icons/fa";
+import useCarts from "../../../hooks/useCarts";
 
 const Navbar = () => {
   const { user, loggedOut } = useAuth();
   const navigate = useNavigate();
+  const [carts] = useCarts();
+
+  // handle logOut button
   const handleLoggedOut = () => {
-    loggedOut();
+    loggedOut().then(() => {
+      navigate("/");
+    });
     Swal.fire({
       position: "center",
       icon: "success",
       title: "User log out successfully",
       showConfirmButton: false,
-      timer: 1500
+      timer: 1500,
     });
-    navigate('/');
   };
+
+  // all navLinks
   const navLinks = (
     <>
       <li className="uppercase text-lg font-semibold ">
@@ -106,11 +114,25 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 text-white ">{navLinks}</ul>
       </div>
       <div>
-    {user && <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-      <div className="w-10 rounded-full">
-        <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
-      </div>
-    </label>}
+        {user && (
+          <div className="flex gap-3 items-center">
+            <div className="indicator bg-black">
+              <Link to={'/dashboard/cart'}>
+                <span className="indicator-item badge badge-secondary">
+                  {carts.length}
+                </span>
+                <button className="text-2xl ">
+                  <FaCartArrowDown />
+                </button>
+              </Link>
+            </div>
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
+              </div>
+            </label>
+          </div>
+        )}
       </div>
     </div>
   );
