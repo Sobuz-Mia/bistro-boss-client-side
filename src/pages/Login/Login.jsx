@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 // import { useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 const Login = () => {
   // const captchaRef = useRef(null);
   const navigate = useNavigate();
@@ -122,6 +123,8 @@ const Login = () => {
                 Sign in
               </button>
             </div>
+            <p className="text-center text-2xl ">Or Login With</p>
+            <SocialLogin/>
             <p className="text-center ">
               New here?{" "}
               <Link to={"/register"} className="text-[#DBB984] font-bold">

@@ -7,6 +7,11 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Dashboard from "../layout/Dashboard";
 import Cart from "../pages/dahboard/Cart/Cart";
+import AllUsers from "../pages/dahboard/Cart/AllUsers/AllUsers";
+import AddItem from "../pages/dahboard/AddItem/AddItem";
+import AdminRoutes from "./AdminRoutes";
+import ManageItems from "../pages/dahboard/ManageItems/ManageItems";
+import UpdateMenu from "../pages/dahboard/UpdateMenu/UpdateMenu";
 
 export const router = createBrowserRouter([
   {
@@ -36,13 +41,39 @@ export const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path:'dashboard',
-    element:<Dashboard/>,
-    children:[
+    path: "dashboard",
+    element: <Dashboard />,
+    children: [
       {
-        path:'/dashboard/cart',
-        element:<Cart/>
+        path: "cart",
+        element: <Cart />,
+      },
+      // admin routes
+      {
+        path: "allUsers",
+        element: (
+          <AdminRoutes>
+            <AllUsers />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "addItem",
+        element: (
+          <AdminRoutes>
+            <AddItem />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path:'manageItems',
+        element:<ManageItems/>
+      },
+      {
+        path:'updateMenu/:id',
+        element:<UpdateMenu/>,
+        loader: ({params})=>fetch(`http://localhost:5000/menu/${params.id}`)
       }
-    ]
-  }
+    ],
+  },
 ]);
